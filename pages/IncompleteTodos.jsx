@@ -133,7 +133,7 @@ width:80%;
 `
 const LI = styled.li`
 list-style:none;
-margin: 5px;
+margin: 10px;
 `
 const INcompleteList = styled.div`
 background-color: #EEFFFF;

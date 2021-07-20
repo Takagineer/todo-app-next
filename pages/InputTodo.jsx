@@ -53,6 +53,7 @@ background-color: rgb(202, 211, 39);
 width: 80%;
 border-radius: 20px;
 padding-bottom:10px;
+padding-left:30px
 `
 const INputArea = styled.div`
 margin: 20px;

@@ -13,9 +13,6 @@ export const Filter=(props) =>{
   return (
     <FIlterBlock>
 
-    {/* { incompleteTodos } */}
-
-
       <FIlter>
         <BUtton onClick={()=>onClickSort()}>全て</BUtton>
         <BUtton onClick={()=>onClickSort()}>進行中</BUtton>
