@@ -202,4 +202,5 @@ font-weight:10px;
 width:10%;
 padding:5px;
 margin-top:10px;
+margin-left:50px
 `
