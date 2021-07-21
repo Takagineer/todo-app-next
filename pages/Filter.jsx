@@ -2,22 +2,25 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 
-const onClickSort =()=>{
-
-}
 
 export const Filter=(props) =>{
   // const {incompleteTodos} = props;
   // const [] = useState("")
-  
+
+  const [filter,setFilter] = useState()
+
+  const onClickSort =(e)=>{
+    console.log(e.target.value)
+  // setFilter(e.target.value)
+  }
+
   return (
     <FIlterBlock>
-
       <FIlter>
-        <BUtton onClick={()=>onClickSort()}>全て</BUtton>
-        <BUtton onClick={()=>onClickSort()}>進行中</BUtton>
-        <BUtton onClick={()=>onClickSort()}>未完了</BUtton>
-        <BUtton onClick={()=>onClickSort()}>完了済み</BUtton>
+        <BUtton onClick={()=>onClickSort('全て')}>全て</BUtton>
+        <BUtton onClick={()=>onClickSort('未着手')}>未着手</BUtton>
+        <BUtton onClick={()=>onClickSort('進行中')}>進行中</BUtton>
+        <BUtton onClick={()=>onClickSort('完了済み')}>完了済み</BUtton>
       </FIlter>
     </FIlterBlock>
   )

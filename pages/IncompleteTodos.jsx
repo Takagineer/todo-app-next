@@ -17,7 +17,7 @@ export const IncompleteTodos = (props) =>{
   const [isEditText,setIsEditText] = useState("")
   const [isEditLimit,setIsEditLimit] = useState("")
   const [isEditProgress,setIsEditProgress] = useState('')
-
+  const [filter,setFilter] =useState('全て')
 
   // 編集ボタンを押下した際、そのタスクの変更内容の詳細を出す処理。
   const openEdit=(index)=>{
@@ -34,8 +34,6 @@ export const IncompleteTodos = (props) =>{
     incompleteTodos[index].text = isEditText
     incompleteTodos[index].limit = isEditLimit
     incompleteTodos[index].progress = isEditProgress
-    console.log(incompleteTodos)
-    // 以下の１行がよくわからない
     setIsEdit(false)
     setIsEditTitle('')
     setIsEditText('')
@@ -43,6 +41,7 @@ export const IncompleteTodos = (props) =>{
     incompleteTodos[index].isEdit = false
   }
 
+  // /*更新ボタンを押した際に、各項目を更新する
 
   const onChangeEditTitle=(e)=>{
     setIsEditTitle(e.target.value)
@@ -58,12 +57,30 @@ export const IncompleteTodos = (props) =>{
     setIsEditProgress(e.target.value)
   }
 
+  const newTodos = incompleteTodos.filter(todo=>{
+      if(filter==="全て")return todo
+      if(filter==="未着手")return todo.progress === '未着手'
+      if(filter==="進行中")return todo.progress === '進行中'
+      if(filter==="完了済み")return todo.progress === '完了済み'
+  })
+
   return(
     <>
     <INcompleteBlock>
       <TItle>todo一覧</TItle>
+
+      <SElect　
+        value={filter} 
+        onChange={(e)=>setFilter(e.target.value)}
+      >
+        <option value='全て'>全て</option>
+        <option value='未着手'>未着手</option>
+        <option value='進行中'>進行中</option>
+        <option value='完了済み'>完了済み</option>
+      </SElect>
+
       <UL>
-        {incompleteTodos.map((todo,index)=>{
+        {newTodos.map((todo,index)=>{
           return(
           <INcompleteList key={todo.id} 
             style={todo.progress==="未着手"? {background:'#FF97C2'}
@@ -81,7 +98,6 @@ export const IncompleteTodos = (props) =>{
                 </LIstGuide>
                   <LI>Title:{todo.title}</LI>
                   <LI>内容:{todo.text}</LI>
-                  <LI>内容:{todo.progress}</LI>
                   <BUtton onClick={()=>onClickDelete(index)}>削除</BUtton>
                   <BUtton onClick={()=>openEdit(index)}>編集</BUtton>
                 </>

@@ -7,6 +7,7 @@ import { InputTodo } from "./InputTodo";
 import Filter from "./Filter";
 import { IncompleteTodos } from "./IncompleteTodos";
 import styled from "styled-components";
+// import Test from "./Test";
 
 export default function Home() {
   const [incompleteTodos, setIncompleteTodos] = useState([]);
@@ -70,7 +71,7 @@ export default function Home() {
           onChangeLimitValue={onChangeLimitValue}
         />
 
-        <Filter incompleteTodos={incompleteTodos} />
+        {/* <Filter incompleteTodos={incompleteTodos} /> */}
 
         <IncompleteTodos
           incompleteTodos={incompleteTodos}
@@ -78,6 +79,7 @@ export default function Home() {
           isEdit={isEdit}
           setIsEdit={setIsEdit}
         />
+        {/* <Test /> */}
       </APp>
     </>
   );
