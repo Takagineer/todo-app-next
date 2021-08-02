@@ -16,7 +16,7 @@ export const InputTodo =(props)=>{
     setTodoProgress,
     onChangeTitleValue,
     onChangeTextValue,
-    onChangeLimitValue,
+    onChangeLimitValue, 
   } = props;
 
   return(
@@ -47,6 +47,8 @@ export const InputTodo =(props)=>{
     </>
   )
 };
+
+export default InputTodo
 
 const INputBlock = styled.div`
 background-color: rgb(202, 211, 39);

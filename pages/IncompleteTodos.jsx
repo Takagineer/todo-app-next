@@ -1,34 +1,34 @@
 import React
-, { useState }from 'react';
+, { useState } from 'react';
 import styled from 'styled-components';
 // import IncompleteTodoProgressList from './IncompleteTodoProgressList';
 
 
 
-export const IncompleteTodos = (props) =>{
+export const IncompleteTodos = (props) => {
   const {
-    incompleteTodos, 
+    incompleteTodos,
     onClickDelete,
     isEdit,
     setIsEdit
   } = props;
 
-  const [isEditTitle,setIsEditTitle] = useState("")
-  const [isEditText,setIsEditText] = useState("")
-  const [isEditLimit,setIsEditLimit] = useState("")
-  const [isEditProgress,setIsEditProgress] = useState('')
-  const [filter,setFilter] =useState('全て')
+  const [isEditTitle, setIsEditTitle] = useState("")
+  const [isEditText, setIsEditText] = useState("")
+  const [isEditLimit, setIsEditLimit] = useState("")
+  const [isEditProgress, setIsEditProgress] = useState('')
+  const [filter, setFilter] = useState('全て')
 
   // 編集ボタンを押下した際、そのタスクの変更内容の詳細を出す処理。
-  const openEdit=(index)=>{
+  const openEdit = (index) => {
     incompleteTodos[index].isEdit = true
     // 以下の１行がよくわからない
     setIsEdit(true)
   }
 
   // /*更新ボタンを押した際に、各項目を更新する
-  const closeEdit=(index)=>{
-    if(isEditTitle===""||isEditText===""||isEditLimit===""||isEditProgress==="")return
+  const closeEdit = (index) => {
+    if (isEditTitle === "" || isEditText === "" || isEditLimit === "" || isEditProgress === "") return
 
     incompleteTodos[index].title = isEditTitle
     incompleteTodos[index].text = isEditText
@@ -43,93 +43,95 @@ export const IncompleteTodos = (props) =>{
 
   // /*更新ボタンを押した際に、各項目を更新する
 
-  const onChangeEditTitle=(e)=>{
+  const onChangeEditTitle = (e) => {
     setIsEditTitle(e.target.value)
   }
-  const onChangeEditText=(e)=>{
+  const onChangeEditText = (e) => {
     setIsEditText(e.target.value)
   }
-  const onChangeEditLimit=(e)=>{
+  const onChangeEditLimit = (e) => {
     setIsEditLimit(e.target.value)
   }
 
-  const onChangeEditProgress=(e)=>{
+  const onChangeEditProgress = (e) => {
     setIsEditProgress(e.target.value)
   }
 
-  const newTodos = incompleteTodos.filter(todo=>{
-      if(filter==="全て")return todo
-      if(filter==="未着手")return todo.progress === '未着手'
-      if(filter==="進行中")return todo.progress === '進行中'
-      if(filter==="完了済み")return todo.progress === '完了済み'
+  const newTodos = incompleteTodos.filter(todo => {
+    if (filter === "全て") return todo
+    if (filter === "未着手") return todo.progress === '未着手'
+    if (filter === "進行中") return todo.progress === '進行中'
+    if (filter === "完了済み") return todo.progress === '完了済み'
   })
 
-  return(
+  return (
     <>
-    <INcompleteBlock>
-      <TItle>todo一覧</TItle>
+      <INcompleteBlock>
+        <TItle>todo一覧</TItle>
 
-      <SElect　
-        value={filter} 
-        onChange={(e)=>setFilter(e.target.value)}
-      >
-        <option value='全て'>全て</option>
-        <option value='未着手'>未着手</option>
-        <option value='進行中'>進行中</option>
-        <option value='完了済み'>完了済み</option>
-      </SElect>
+        <SElect
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value='全て'>全て</option>
+          <option value='未着手'>未着手</option>
+          <option value='進行中'>進行中</option>
+          <option value='完了済み'>完了済み</option>
+        </SElect>
 
-      <UL>
-        {newTodos.map((todo,index)=>{
-          return(
-          <INcompleteList key={todo.id} 
-            style={todo.progress==="未着手"? {background:'#FF97C2'}
-                  :todo.progress==="進行中"? {background:'#E9FFA5'}
-                  :todo.progress==="完了済み"? {background:'#78FF94'}
-                  :{background:'#EEEEEE'}
+        <UL>
+          {newTodos.map((todo, index) => {
+            return (
+              <INcompleteList key={todo.id}
+                style={todo.progress === "未着手" ? { background: '#FF97C2' }
+                  : todo.progress === "進行中" ? { background: '#E9FFA5' }
+                    : todo.progress === "完了済み" ? { background: '#78FF94' }
+                      : { background: '#EEEEEE' }
                 }
-            >
+              >
 
-              {todo.isEdit === false?
-                <>  
-                <LIstGuide >
-                  <LI>No:{todo.id+1}</LI>
-                  <LI>期限:{todo.limit}</LI>
-                </LIstGuide>
-                  <LI>Title:{todo.title}</LI>
-                  <LI>内容:{todo.text}</LI>
-                  <BUtton onClick={()=>onClickDelete(index)}>削除</BUtton>
-                  <BUtton onClick={()=>openEdit(index)}>編集</BUtton>
-                </>
-              :
-                <>
-                  <INputArea>
-                    <TItle>編集してください</TItle>
-                    <INputTag autoFocus  placeholder={todo.title} value={isEditTitle} onChange={onChangeEditTitle} ></INputTag>
-                  </INputArea>
-                  <INputArea>
-                    <TExtArea  placeholder={todo.text} value={isEditText} onChange={onChangeEditText}></TExtArea>
-                  </INputArea>
-                  <INputArea>
-                    <INputTag  type="date" placeholder={todo.limit} value={isEditLimit} onChange={onChangeEditLimit}></INputTag>
-                    <br />
-                    <SElect value={isEditProgress} onChange= {onChangeEditProgress}>
-                      <option value="未着手">未着手</option>
-                      <option value="進行中">進行中</option>
-                      <option value="完了済み">完了済み</option>
-                    </SElect>
-                    <BUtton onClick={()=>closeEdit(index)}>更新</BUtton>
-                  </INputArea>
-                </>
-              }
-          </INcompleteList>
-);
-        })}
-      </UL>
-    </INcompleteBlock>
+                {todo.isEdit === false ?
+                  <>
+                    <LIstGuide >
+                      <LI>No:{todo.id + 1}</LI>
+                      <LI>期限:{todo.limit}</LI>
+                    </LIstGuide>
+                    <LI>Title:{todo.title}</LI>
+                    <LI>内容:{todo.text}</LI>
+                    <BUtton onClick={() => onClickDelete(index)}>削除</BUtton>
+                    <BUtton onClick={() => openEdit(index)}>編集</BUtton>
+                  </>
+                  :
+                  <>
+                    <INputArea>
+                      <TItle>編集してください</TItle>
+                      <INputTag autoFocus placeholder={todo.title} value={isEditTitle} onChange={onChangeEditTitle} ></INputTag>
+                    </INputArea>
+                    <INputArea>
+                      <TExtArea placeholder={todo.text} value={isEditText} onChange={onChangeEditText}></TExtArea>
+                    </INputArea>
+                    <INputArea>
+                      <INputTag type="date" placeholder={todo.limit} value={isEditLimit} onChange={onChangeEditLimit}></INputTag>
+                      <br />
+                      <SElect value={isEditProgress} onChange={onChangeEditProgress}>
+                        <option value="未着手">未着手</option>
+                        <option value="進行中">進行中</option>
+                        <option value="完了済み">完了済み</option>
+                      </SElect>
+                      <BUtton onClick={() => closeEdit(index)}>更新</BUtton>
+                    </INputArea>
+                  </>
+                }
+              </INcompleteList>
+            );
+          })}
+        </UL>
+      </INcompleteBlock>
     </>
   )
 };
+
+export default IncompleteTodos
 
 const INcompleteBlock = styled.div`
 background-color: #88FFFF;
@@ -170,7 +172,7 @@ border-radius: 20px;
   cursor: pointer;
 `
 
-const LIstGuide= styled.div`
+const LIstGuide = styled.div`
 `
 
 
